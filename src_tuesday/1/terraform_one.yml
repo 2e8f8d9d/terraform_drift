@@ -40,7 +40,7 @@ steps:
       sudo mount -t cifs //terrastateff4ddbac9462.file.core.windows.net/terraformstatefiles /mnt/terraformstatefiles -o vers=3.0,credentials=/etc/smbcredentials/terrastateff4ddbac9462.cred,dir_mode=0777,file_mode=0777,serverino
             
       terraform init
-      terraform plan -out='/mnt/terraformstatefiles'
+      terraform plan -out='/mnt/terraformstatefiles/terraform1.json'
       terraform apply -auto-approve
 
       sleep 30
