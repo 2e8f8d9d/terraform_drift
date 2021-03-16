@@ -15,6 +15,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'sc_hms_terraform'
