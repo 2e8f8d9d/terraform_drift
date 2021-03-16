@@ -28,5 +28,7 @@ steps:
       
       terraform init
       terraform plan
+      terraform apply -auto-approve
+      terraform destroy -auto-approve
     addSpnToEnvironment: true
     workingDirectory: 'src_tuesday/1/'
