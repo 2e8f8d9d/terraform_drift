@@ -22,6 +22,10 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
+      az login
+      az account list
+      az account set --subscription="99c19e8a-0929-4a39-af63-a232d1686654"
+      
       terraform init
       terraform plan
     addSpnToEnvironment: true
