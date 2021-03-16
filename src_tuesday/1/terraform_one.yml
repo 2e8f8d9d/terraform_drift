@@ -41,7 +41,7 @@ steps:
             
       terraform init
       terraform plan -out='/mnt/terraformstatefiles/terraform1.json'
-      terraform apply "/mnt/terraformstatefiles/terraform1.json" -auto-approve
+      terraform apply -auto-approve '/mnt/terraformstatefiles/terraform1.json'
 
       sleep 30
       
