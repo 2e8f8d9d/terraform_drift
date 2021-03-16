@@ -25,9 +25,16 @@ steps:
       az login
       az account list
       az account set --subscription="99c19e8a-0929-4a39-af63-a232d1686654"
+
+      sudo mkdir /mnt/terraformstatefiles
+      if [ ! -d "/etc/smbcredentials" ]; then
+      sudo mkdir /etc/smbcredentials
+      fi
+      if [ ! -f "/etc/smbcredentials/terrastateff4ddbac9462.cred" ]; then
+      sudo bash -c 'echo "username=terrastateff4ddbac9462" >> /etc/smbcredentials/terrastateff4ddbac9462.cred'
       
       terraform init
-      terraform plan
+      terraform plan -out='/mnt/terraformstatefiles'
       terraform apply -auto-approve
 
       sleep 30
