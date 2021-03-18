@@ -12,23 +12,30 @@ Clear-Host
 
 $terraformPlan = ConvertFrom-Json $([File]::ReadAllText($FilePath))
 
-[Console]::WriteLine("Resource type: " + $terraformPlan.resource_changes.type)
-[Console]::WriteLine("Resource name: " + $terraformPlan.resource_changes.name)
-[Console]::WriteLine("Resource mode: " + $terraformPlan.resource_changes.mode + "`n")
+foreach($resource in $terraformPlan.resource_changes) {
 
-if ($terraformPlan.resource_changes.change.actions -eq [string]"no-op") {
+    [Console]::WriteLine("Resource type: " + $resource.type)
+    [Console]::WriteLine("Resource name: " + $resource.name)
+    [Console]::WriteLine("Resource mode: " + $resource.mode + "`n")
 
-    Write-Host "No changes needed" -ForegroundColor Yellow
+    if ($resource.change.actions -eq [string]"no-op") {
 
-} else {
+        Write-Host "No changes needed" -ForegroundColor Yellow
 
-    Write-Host "Changes needed:" -ForegroundColor Red
+    } else {
 
-    foreach($change in $terraformPlan.resource_changes.change.actions) {
-        Write-Host `t$change
+        Write-Host "Changes needed:" -ForegroundColor Red
+
+        foreach($change in $resource.change.actions) {
+            Write-Host `t$change
+        }
+
+        if ($resource.change.before) {
+            Compare-Object -ReferenceObject ($resource.change.before) -DifferenceObject ($resource.change.after) -Property 'location', 'name'
+        } else {
+            Write-Host $resource.change.after | ConvertTo-Json -AsArray
+        }
+
+        # Email can be sent to ops team showing what will be changed
     }
-
-    Compare-Object -ReferenceObject ($terraformPlan.resource_changes.change.before) -DifferenceObject ($terraformPlan.resource_changes.change.after) -Property 'location', 'name'
-
-    # Email can be sent to ops team showing what will be changed
 }

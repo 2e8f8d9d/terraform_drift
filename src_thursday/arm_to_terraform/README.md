@@ -4,6 +4,8 @@
 
 [Terraform import documentation](https://www.terraform.io/docs/cli/import/index.html)
 
+[Terraform state documentation](https://www.terraform.io/docs/cli/commands/refresh.html)
+
 ### Installation
 
 - Navigate to working directory
@@ -48,4 +50,4 @@ Managing configuration drift
 - `terraform refresh`: This command can be used to alter the state file to match what is currently running
 - `terraform plan -out="./plan.json"`: This command can be used to check the state file against what is currently in the terraform configuration files
 - `terraform show -json "plan.json" >> ./readable_plan.json`: This command can be used to convert the binary plan to a human-readable json file
-- Within the human-readable json file the `actions` object can be inspected to confirm weather changes would be implemented. `no-op` indicates no changes will be implemented
+- Within the human-readable json file the `actions` object can be inspected to confirm weather changes would be implemented. `no-op` indicates no changes will be implementedcd

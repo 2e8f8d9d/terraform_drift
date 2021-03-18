@@ -12,6 +12,14 @@ provider "azurerm" {
   features {}
 }
 resource "azurerm_resource_group" "my_resource_group" {
-    name = "something_different"
-    location = "centralus"
+    name = "hms_terraform"
+    location = "eastus"
+}
+
+resource "azurerm_storage_account" "my_storage_account" {
+  name                     = "terrastateff4ddbac9462"
+  resource_group_name      = azurerm_resource_group.my_resource_group.name
+  location                 = azurerm_resource_group.my_resource_group.location
+  account_tier             = "Standard"
+  account_replication_type = "GRS"
 }

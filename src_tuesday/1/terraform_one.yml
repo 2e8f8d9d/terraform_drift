@@ -24,24 +24,13 @@ steps:
     inlineScript: |
       az login
       az account list
-      az account set --subscription="99c19e8a-0929-4a39-af63-a232d1686654"
+      az account set --subscription="{subscription_id}"
 
-      sudo mkdir /mnt/terraformstatefiles
-      if [ ! -d "/etc/smbcredentials" ]; then
-      sudo mkdir /etc/smbcredentials
-      fi
-      if [ ! -f "/etc/smbcredentials/terrastateff4ddbac9462.cred" ]; then
-          sudo bash -c 'echo "username=terrastateff4ddbac9462" >> /etc/smbcredentials/terrastateff4ddbac9462.cred'
-          sudo bash -c 'echo "password=/gLUZUC9mxpcpCLFnftsvZJRJCU2iWT7wZFejSxBK6/1vo3bQyWCtlyxO2zjeFSpgSf+ekUOv6DaNtdQV4tpfg==" >> /etc/smbcredentials/terrastateff4ddbac9462.cred'
-      fi
-      sudo chmod 600 /etc/smbcredentials/terrastateff4ddbac9462.cred
-
-      sudo bash -c 'echo "//terrastateff4ddbac9462.file.core.windows.net/terraformstatefiles /mnt/terraformstatefiles cifs nofail,vers=3.0,credentials=/etc/smbcredentials/terrastateff4ddbac9462.cred,dir_mode=0777,file_mode=0777,serverino" >> /etc/fstab'
-      sudo mount -t cifs //terrastateff4ddbac9462.file.core.windows.net/terraformstatefiles /mnt/terraformstatefiles -o vers=3.0,credentials=/etc/smbcredentials/terrastateff4ddbac9462.cred,dir_mode=0777,file_mode=0777,serverino
-            
+      # fileshare connection has been removed
+        
       terraform init
-      terraform plan -out='/mnt/terraformstatefiles/terraform1.json'
-      terraform apply -auto-approve '/mnt/terraformstatefiles/terraform1.json'
+      terraform plan # -out='/mnt/terraformstatefiles/terraform1.json'
+      terraform apply # -auto-approve '/mnt/terraformstatefiles/terraform1.json'
 
       sleep 30
       
